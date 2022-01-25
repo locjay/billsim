@@ -2,6 +2,12 @@
     "settings": {
         "index": {
             "similarity": {
+                "scripted_tfidf": {
+                    "type": "scripted",
+                    "script": {
+                        "source": "double tf = Math.sqrt(doc.freq); double idf = Math.log((field.docCount+1.0)/(term.docFreq+1.0)) + 1.0; double norm = 1/Math.sqrt(doc.length); return query.boost * tf * idf * norm;"
+                    }
+                },
                 "custom_similarity_1": {
                     "type": "BM25",
                     "k1": 1.2,
@@ -40,11 +46,11 @@
                     },
                     "section_header": {
                         "type": "text",
-                        "similarity": "classic"
+                        "similarity": "scripted_tfidf"
                     },
                     "section_text": {
                         "type": "text",
-                        "similarity": "classic"
+                        "similarity": "scripted_tfidf"
                     },
                     "section_xml": {
                         "type": "text",

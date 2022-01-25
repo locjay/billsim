@@ -36,7 +36,7 @@ def createIndex(index: str = constants.INDEX_SECTIONS,
         except exceptions.NotFoundError:
             logger.error('No index to delete: {0}'.format(index))
 
-    logger.info('Creating index with mapping: ')
+    logger.info('Creating index with mapping: {0}'.format(index))
     logger.info(str(body))
     es.indices.create(index=index, ignore=400, body=body)
 
